@@ -1,0 +1,77 @@
+<html>
+    <head>
+        <title>学生信息表</title>
+        <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div class="ui container">
+            <h1 class="ui header center aligned">学生信息表</h1>
+            <div class="ui fluid card" style="padding: 1em;">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                  {% for message in messages %}
+                    <div class="ui warning message">{{ message }}</div>
+                  {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <form class="ui form" action="/add" method="get">
+                <div class="two fields">
+                <div class="field">
+                  <label>Name</label>
+                  <input type="text" name="name" placeholder="Name">
+                </div>
+                <div class="field">
+                    <label>Gender</label>
+                    <select name="gender" class="ui fluid dropdown">
+                      <option value="Boy">男</option>
+                      <option value="Girl">女</option>
+                    </select>
+                </div>
+                </div>
+                <div class="two fields">
+                <div class="field">
+                  <label>Teacher</label>
+                  <input type="text" name="teacher" placeholder="Teacher">
+                </div>
+                <div class="field">
+                    <label>Gender</label>
+                    <select name="grade" class="ui fluid dropdown">
+                      <option value="1">一年级</option>
+                      <option value="2">二年级</option>
+                      <option value="3">三年级</option>
+                      <option value="4">四年级</option>
+                      <option value="5">五年级</option>
+                    </select>
+                </div>
+                </div>
+                <button class="ui right floated green button" type="submit">+ Student</button>
+              </form>
+            </div>
+            <table class="ui celled table">
+                <thead>
+                  <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Gender</th>
+                  <th>Teacher</th>
+                  <th>Grade</th>
+                  <th>-</th>
+                </tr></thead>
+                <tbody>
+                    {% for student in students %}
+                        <tr>
+                          <td>{{ student.id }}</td>
+                          <td>{{ student.name }}</td>
+                          <td>{{ student.gender_display() }}</td>
+                          <td>{{ student.teacher }}</td>
+                          <td>{{ student.grade_display() }}</td>
+                          <td><a href="/rm?id={{ student.id}}"><i class="remove user icon red"></i></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+
+</html>
